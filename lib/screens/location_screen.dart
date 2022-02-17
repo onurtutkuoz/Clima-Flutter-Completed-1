@@ -1,8 +1,8 @@
-import 'package:clima/core/request.dart';
-import 'package:clima/models/empty_model.dart';
 import 'package:flutter/material.dart';
 import '../constants/constants.dart';
+import '../core/request.dart';
 import '../core/response.dart';
+import '../models/empty_model.dart';
 import '../models/weather_model.dart';
 import '../services/weather_service.dart';
 import 'city_screen.dart';
@@ -21,6 +21,7 @@ class _LocationScreenState extends State<LocationScreen> {
   late String weatherIcon;
   late String cityName;
   late String weatherMessage;
+  late String backgroundImage;
 
   @override
   void initState() {
@@ -35,6 +36,7 @@ class _LocationScreenState extends State<LocationScreen> {
       weatherIcon = weatherData.data!.weatherIcon;
       weatherMessage = weatherData.data!.weatherMessage;
       cityName = weatherData.data!.cityName;
+      backgroundImage = weatherData.data!.backgroundImage;
     });
   }
 
@@ -44,7 +46,8 @@ class _LocationScreenState extends State<LocationScreen> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('images/location_background.jpg'),
+            // image: AssetImage('images/location_background.jpg'),
+            image: AssetImage('images/$backgroundImage'),
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(Colors.white.withOpacity(0.8), BlendMode.dstATop),
           ),
@@ -58,7 +61,7 @@ class _LocationScreenState extends State<LocationScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  FlatButton(
+                  MaterialButton(
                     onPressed: () async {
                       var weatherData = await weatherService.getLocationWeather(CRequest<EmptyModel>());
                       updateUI(weatherData);
@@ -68,7 +71,7 @@ class _LocationScreenState extends State<LocationScreen> {
                       size: 50.0,
                     ),
                   ),
-                  FlatButton(
+                  MaterialButton(
                     onPressed: () async {
                       var typedName = await Navigator.push(
                         context,
@@ -90,9 +93,11 @@ class _LocationScreenState extends State<LocationScreen> {
                   ),
                 ],
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 15.0),
+              Center(
+                //padding: EdgeInsets.only(left: 15.0),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
                       '$temperature°',
@@ -106,7 +111,7 @@ class _LocationScreenState extends State<LocationScreen> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(right: 15.0),
+                padding: EdgeInsets.fromLTRB(0, 0, 15, 30),
                 child: Text(
                   '$weatherMessage in $cityName',
                   textAlign: TextAlign.right,

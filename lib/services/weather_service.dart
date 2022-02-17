@@ -50,7 +50,9 @@ class WeatherService {
     WeatherModel weatherModel = WeatherModel();
     weatherModel.cityName = weatherData['name'];
     weatherModel.temperature = (weatherData['main']['temp'] as double).toInt();
-    weatherModel.weatherIcon = _getWeatherIcon(condition);
+    WeatherModel temp = _getWeatherIcon(condition);
+    weatherModel.weatherIcon = temp.weatherIcon;
+    weatherModel.backgroundImage = temp.backgroundImage;
     weatherModel.weatherMessage = _getMessage(weatherModel.temperature);
 
     return weatherModel;
@@ -71,24 +73,36 @@ class WeatherService {
     return weatherResponse;
   }
 
-  String _getWeatherIcon(int condition) {
+  WeatherModel _getWeatherIcon(int condition) {
+    WeatherModel weatherModel = WeatherModel();
+
     if (condition < 300) {
-      return '🌩';
+      weatherModel.weatherIcon = '🌩';
+      weatherModel.backgroundImage = 'thunderbolt.jpeg';
     } else if (condition < 400) {
-      return '🌧';
+      weatherModel.weatherIcon = '🌧';
+      weatherModel.backgroundImage = 'rainny.jpeg';
     } else if (condition < 600) {
-      return '☔️';
+      weatherModel.weatherIcon = '☔️';
+      weatherModel.backgroundImage = 'rainny.jpeg';
     } else if (condition < 700) {
-      return '☃️';
+      weatherModel.weatherIcon = '☃️';
+      weatherModel.backgroundImage = 'snowy.jpeg';
     } else if (condition < 800) {
-      return '🌫';
+      weatherModel.weatherIcon = '🌫';
+      weatherModel.backgroundImage = 'foggy.jpeg';
     } else if (condition == 800) {
-      return '☀️';
+      weatherModel.weatherIcon = '☀️';
+      weatherModel.backgroundImage = 'sunny.jpeg';
     } else if (condition <= 804) {
-      return '☁️';
+      weatherModel.weatherIcon = '☁️';
+      weatherModel.backgroundImage = 'cloudy.jpeg';
     } else {
-      return '🤷‍';
+      weatherModel.weatherIcon = '🤷‍';
+      weatherModel.backgroundImage = 'location_background.jpg';
     }
+
+    return weatherModel;
   }
 
   String _getMessage(int temp) {

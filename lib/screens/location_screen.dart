@@ -1,12 +1,15 @@
+import 'package:clima/core/request.dart';
+import 'package:clima/models/empty_model.dart';
 import 'package:flutter/material.dart';
-import 'package:clima/utilities/constants.dart';
-import 'package:clima/services/weather.dart';
+import '../constants/constants.dart';
+import '../core/response.dart';
+import '../models/weather_model.dart';
+import '../services/weather_service.dart';
 import 'city_screen.dart';
 
 class LocationScreen extends StatefulWidget {
-  LocationScreen({this.locationWeather});
-
-  final locationWeather;
+  LocationScreen({required this.locationWeather});
+  final CResponse<WeatherModel> locationWeather;
 
   @override
   _LocationScreenState createState() => _LocationScreenState();
@@ -14,10 +17,10 @@ class LocationScreen extends StatefulWidget {
 
 class _LocationScreenState extends State<LocationScreen> {
   WeatherModel weather = WeatherModel();
-  int temperature;
-  String weatherIcon;
-  String cityName;
-  String weatherMessage;
+  late int temperature;
+  late String weatherIcon;
+  late String cityName;
+  late String weatherMessage;
 
   @override
   void initState() {
@@ -26,21 +29,12 @@ class _LocationScreenState extends State<LocationScreen> {
     updateUI(widget.locationWeather);
   }
 
-  void updateUI(dynamic weatherData) {
+  void updateUI(CResponse<WeatherModel> weatherData) {
     setState(() {
-      if (weatherData == null) {
-        temperature = 0;
-        weatherIcon = 'Error';
-        weatherMessage = 'Unable to get weather data';
-        cityName = '';
-        return;
-      }
-      double temp = weatherData['main']['temp'];
-      temperature = temp.toInt();
-      var condition = weatherData['weather'][0]['id'];
-      weatherIcon = weather.getWeatherIcon(condition);
-      weatherMessage = weather.getMessage(temperature);
-      cityName = weatherData['name'];
+      temperature = weatherData.data!.temperature;
+      weatherIcon = weatherData.data!.weatherIcon;
+      weatherMessage = weatherData.data!.weatherMessage;
+      cityName = weatherData.data!.cityName;
     });
   }
 
@@ -52,8 +46,7 @@ class _LocationScreenState extends State<LocationScreen> {
           image: DecorationImage(
             image: AssetImage('images/location_background.jpg'),
             fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(
-                Colors.white.withOpacity(0.8), BlendMode.dstATop),
+            colorFilter: ColorFilter.mode(Colors.white.withOpacity(0.8), BlendMode.dstATop),
           ),
         ),
         constraints: BoxConstraints.expand(),
@@ -67,7 +60,7 @@ class _LocationScreenState extends State<LocationScreen> {
                 children: <Widget>[
                   FlatButton(
                     onPressed: () async {
-                      var weatherData = await weather.getLocationWeather();
+                      var weatherData = await weatherService.getLocationWeather(CRequest<EmptyModel>());
                       updateUI(weatherData);
                     },
                     child: Icon(
@@ -86,8 +79,7 @@ class _LocationScreenState extends State<LocationScreen> {
                         ),
                       );
                       if (typedName != null) {
-                        var weatherData =
-                            await weather.getCityWeather(typedName);
+                        var weatherData = await weatherService.getCityWeather(CRequest<String>(data: typedName));
                         updateUI(weatherData);
                       }
                     },

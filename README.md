@@ -16,17 +16,22 @@ We’re going to make a weather app inspired by the beautiful designs made by [O
 
 ## What you will learn
 
-- How to use Dart to perform asynchronous tasks.
-- Understand async and await.
-- Learn about Futures and how to work with them.
-- How to network with the Dart http package.
-- What APIs are and how to use them to get data from the internet.
-- What JSONs are and how to parse them using the Dart convert package.
-- How to pass data forwards and backwards between screens using the Navigator.
-- How to handle exceptions in Dart using try/catch/throw.
-- Learn about the lifecycle of Stateful Widgets and how to override them.
-- How to use the Geolocator package to get live location data for both iOS and Android.
-- How to use the TextField Widget to take user input.
+<br> How to use Dart to perform asynchronous tasks.</br>
+<br>Understand async and await.</br>
+<br> Learn about Futures and how to work with them.</br>
+<br>How to network with the Dart http package.</br>
+<br>What APIs are and how to use them to get data from the internet.</br>
+<br> What JSONs are and how to parse them using the Dart convert package.</br>
+<br> How to pass data forwards and backwards between screens using the Navigator.</br>
+<br>How to handle exceptions in Dart using try/catch/throw.</br>
+<br>Learn about the lifecycle of Stateful Widgets and how to override vthem.</br>
+<br>How to use the Geolocator package to get live location data for both iOS and Android.</br>
+<br>How to use the TextField Widget to take user input.</br>
+
+![Screenshot 2022-02-18 at 12 58 17](https://user-images.githubusercontent.com/62757704/154660990-8318ee4e-9a84-45a7-b011-d8ab53eb18c4.png)
+![Screenshot 2022-02-18 at 12 59 15](https://user-images.githubusercontent.com/62757704/154661002-f6e14df5-a329-400f-9f33-b9dbb1e46ac3.png)
+![Screenshot 2022-02-18 at 13 01 12](https://user-images.githubusercontent.com/62757704/154661011-b8c5d02e-7801-4a48-85b2-d4ace4a59002.png)
+![Screenshot 2022-02-18 at 13 01 56](https://user-images.githubusercontent.com/62757704/154661015-18364213-0204-49e0-b8e6-7679f917ef28.png)
 
 
  

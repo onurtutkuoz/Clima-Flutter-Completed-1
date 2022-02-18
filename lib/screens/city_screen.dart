@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:clima/constants/constants.dart';
 
@@ -15,8 +16,8 @@ class _CityScreenState extends State<CityScreen> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('images/city_background.jpg'),
-            fit: BoxFit.cover,
+            image: AssetImage('images/city_background.jpeg'),
+            fit: BoxFit.fill,
           ),
         ),
         constraints: BoxConstraints.expand(),
@@ -49,8 +50,12 @@ class _CityScreenState extends State<CityScreen> {
               ),
               MaterialButton(
                 color: Colors.transparent.withAlpha(300),
-                onPressed: () {
-                  Navigator.pop(context, cityName);
+                onPressed: () async {
+                  if (cityName == '') {
+                    await showDialog();
+                  } else {
+                    Navigator.pop(context, cityName);
+                  }
                 },
                 child: Text(
                   'Get Weather',
@@ -61,6 +66,25 @@ class _CityScreenState extends State<CityScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> showDialog() async {
+    await showCupertinoDialog(
+      context: context,
+      builder: (context) {
+        return CupertinoAlertDialog(
+          title: Text("City Selection"),
+          content: Text('You did not select city, please write a city .'),
+          actions: [
+            CupertinoDialogAction(
+                child: Text("OK"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                }),
+          ],
+        );
+      },
     );
   }
 }

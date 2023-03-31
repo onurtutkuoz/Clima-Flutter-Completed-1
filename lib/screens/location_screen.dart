@@ -71,6 +71,8 @@ class _LocationScreenState extends State<LocationScreen> {
                       size: 50.0,
                     ),
                   ),
+               // kullanicidan girilen datayi bir ,onceki ekrana nasil tasirim 
+               
                   MaterialButton(
                     onPressed: () async {
                       var typedName = await Navigator.push(

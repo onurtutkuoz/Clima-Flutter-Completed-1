@@ -1,3 +1,12 @@
+
+
+
+
+
+
+
+
+
 class LocationModel {
   LocationModel({
     required this.latitude,
